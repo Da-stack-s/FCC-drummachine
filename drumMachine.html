@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drum Machine</title>
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-9ndCyUa6mY2XQnm+10ec1wYUqIhWo+YOkC6SajSuFbEVhPR+8abtTE1Pi6jizo" 
+    crossorigin="anonymous"
+  />
+  <style>
+    /* Ensures each drum pad is square and styled nicely */
+    .drum-pad {
+      font-size: 2rem;
+      aspect-ratio: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body class="bg-dark d-flex justify-content-center align-items-center min-vh-100">
+  <!-- Drum machine container is centered using mx-auto and a max-width -->
+  <div id="drum-machine" class="card bg-secondary text-center mx-auto" style="max-width: 500px; width: 100%;">
+    <div id="display" class="card-header bg-dark text-light">
+      Play a sound
+    </div>
+    <div class="card-body">
+      <!-- Using row-cols-3 to automatically create 3 columns per row & g-3 for spacing -->
+      <div class="row row-cols-3 g-3">
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Heater-1">
+            Q
+            <audio class="clip" id="Q" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Heater-2">
+            W
+            <audio class="clip" id="W" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Heater-3">
+            E
+            <audio class="clip" id="E" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Heater-4">
+            A
+            <audio class="clip" id="A" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Clap">
+            S
+            <audio class="clip" id="S" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Open-HH">
+            D
+            <audio class="clip" id="D" src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Kick-n'-Hat">
+            Z
+            <audio class="clip" id="Z" src="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Kick">
+            X
+            <audio class="clip" id="X" src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"></audio>
+          </button>
+        </div>
+        <div class="col">
+          <button class="drum-pad btn btn-primary w-100" id="Closed-HH">
+            C
+            <audio class="clip" id="C" src="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3"></audio>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+fVzGm5oMl5Yd6+U5Qg1d3T8PfI1F"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    // Play sound on click or keydown event
+    function playSound(event) {
+      let key;
+      if (event.type === "keydown") {
+        key = event.key.toUpperCase();
+      } else if (event.type === "click") {
+        key = event.currentTarget.innerText.trim();
+      }
+      const audioElement = document.getElementById(key);
+      if (audioElement) {
+        audioElement.currentTime = 0;
+        audioElement.play();
+        const padId = audioElement.parentElement.id;
+        document.getElementById("display").innerText = padId;
+      }
+    }
+
+    // Attach event listeners to each drum pad
+    const drumPads = document.getElementsByClassName("drum-pad");
+    Array.from(drumPads).forEach(pad => {
+      pad.addEventListener("click", playSound);
+    });
+    document.addEventListener("keydown", playSound);
+  </script>
+  <!-- FreeCodeCamp Testing Bundle -->
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
+</html>
+
+
